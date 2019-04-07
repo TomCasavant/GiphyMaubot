@@ -3,3 +3,4 @@ A simple [maubot](https://github.com/maubot/maubot) that generates a random gif 
 
 ## Usage
 '!giphy word' - Bot replies with a link to a gif given the search term
+'!giphy' - Bot replies with a link to a random gif

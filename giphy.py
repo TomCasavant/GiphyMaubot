@@ -1,4 +1,5 @@
 from typing import Type
+import urllib.parse
 from mautrix.util.config import BaseProxyConfig, ConfigUpdateHelper
 from maubot import Plugin, MessageEvent
 from maubot.handlers import command
@@ -26,11 +27,10 @@ class GiphyPlugin(Plugin):
             # If user doesn't supply a search term, set to empty string
             search_term = ""
         api_key = self.config["api_key"]
+        url_params = urllib.parse.urlencode({"tag": search_term, "api_key": api_key})
         # Get random gif url using search term
         async with self.http.get(
-            "http://api.giphy.com/v1/gifs/random?tag={}&api_key={}".format(
-                search_term, api_key
-            )
+            "http://api.giphy.com/v1/gifs/random?{}".format(url_params)
         ) as response:
             data = await response.json()
         gif_link = data.get("data", {}).get("image_url")

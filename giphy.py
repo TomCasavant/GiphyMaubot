@@ -33,6 +33,6 @@ class GiphyPlugin(Plugin):
             )
         ) as response:
             data = await response.json()
-        gif_link = data.get("data").get("image_url")
+        gif_link = data.get("data", {}).get("image_url")
 
         await evt.reply(gif_link, html_in_markdown=True)  # Reply to user

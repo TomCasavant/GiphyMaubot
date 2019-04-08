@@ -1,5 +1,4 @@
 from typing import Type
-import requests
 from mautrix.util.config import BaseProxyConfig, ConfigUpdateHelper
 from maubot import Plugin, MessageEvent
 from maubot.handlers import command

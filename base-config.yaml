@@ -1,1 +1,4 @@
 api_key: API_KEY_HERE
+#Uncomment desired source for random gifs
+source: trending
+#source: random

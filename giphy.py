@@ -54,4 +54,4 @@ class GiphyPlugin(Plugin):
             gif_link = gif.get("url")
 
         if gif_exists:
-            await evt.reply(gif_link, html_in_markdown=True)  # Reply to user
+            await evt.reply(gif_link, allow_html=True)  # Reply to user

@@ -2,3 +2,6 @@ api_key: API_KEY_HERE
 #Uncomment desired source for random gifs
 source: trending
 #source: random
+#Uncomment desired response type, either a quoted reply or just a new message
+response_type: message
+#response_type: reply

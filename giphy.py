@@ -11,6 +11,7 @@ class Config(BaseProxyConfig):
     def do_update(self, helper: ConfigUpdateHelper) -> None:
         helper.copy("api_key")
         helper.copy("source")
+        helper.copy("response_type")
 
 
 class GiphyPlugin(Plugin):
@@ -35,6 +36,7 @@ class GiphyPlugin(Plugin):
 
         api_key = self.config["api_key"]
         url_params = urllib.parse.urlencode({"s": search_term, "api_key": api_key})
+        response_type = self.config["response_type"]
         # Get random gif url using search term
         async with self.http.get(
             "http://api.giphy.com/v1/gifs/{}?{}".format(source, url_params)
@@ -54,4 +56,8 @@ class GiphyPlugin(Plugin):
             gif_link = gif.get("url")
 
         if gif_exists:
-            await evt.reply(gif_link, allow_html=True)  # Reply to user
+            if response_type == "message":
+                await evt.respond(gif_link, allow_html=True)  # Respond to user
+            else:
+                await evt.reply(gif_link, allow_html=True)  # Reply to user
+

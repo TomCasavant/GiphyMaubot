@@ -1,7 +1,10 @@
 api_key: API_KEY_HERE
 #Uncomment desired source for random gifs
+# can be either trending or random
+# note: this is only used when no query is passed!
 source: trending
-#source: random
-#Uncomment desired response type, either a quoted reply or just a new message
+# desired response type:
+#   message: regular message containing url to gif
+#   reply: reply-message containing url to gif
+#   upload: image upload to the room
 response_type: message
-#response_type: reply

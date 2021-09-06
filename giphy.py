@@ -42,7 +42,7 @@ class GiphyPlugin(Plugin):
     def get_config_class(cls) -> Type[BaseProxyConfig]:
         return Config
 
-    @command.new("giphy")
+    @command.new("giphy", aliases=("gif", "g"),)
     @command.argument("search_term", pass_raw=True, required=False)
     async def handler(self, evt: MessageEvent, search_term: str) -> None:
         await evt.mark_read()

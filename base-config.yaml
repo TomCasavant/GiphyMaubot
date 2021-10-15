@@ -2,6 +2,10 @@ giphy_api_key: API_KEY_HERE
 tenor_api_key: API_KEY_HERE
 # Source of the gifs, can be either giphy or tenor
 provider: tenor
+# Number of results of the query in which the gif
+# is randomly chosen. Set 1 for the top result.
+# (tenor-only option)
+num_results: 1
 # Uncomment desired source for random gifs on giphy
 # can be either trending or random
 # note: this is only used when no query is passed!

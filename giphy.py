@@ -15,6 +15,7 @@ class Config(BaseProxyConfig):
         helper.copy("provider")
         helper.copy("source")
         helper.copy("response_type")
+        helper.copy("num_results")
 
 
 class GiphyPlugin(Plugin):
@@ -80,7 +81,7 @@ class GiphyPlugin(Plugin):
                 info["height"] = data["data"]["images"]["original"]["height"]
                 info["mime"] = "image/gif"  # this shouldn't really change
             except Exception as e:
-                await evt.respond("sorry, i'm drawing a blank")
+                await evt.respond("Blip bloop... Something is wrecked up here!")
                 return None
 
         elif self.config["provider"] == "tenor":
@@ -95,7 +96,7 @@ class GiphyPlugin(Plugin):
 
             # Retrieve gif link from JSON response
             try:
-                image_num = random.randint(0, 5)
+                image_num = random.randint(0, self.config["num_results"] - 1)
                 gif_link = data["results"][image_num]["media"][0]["gif"]["url"]
                 info = {}
                 info["width"] = data["results"][image_num]["media"][0]["gif"]["dims"][0]

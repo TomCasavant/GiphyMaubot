@@ -87,7 +87,7 @@ class GiphyPlugin(Plugin):
 
         elif self.config["provider"] == "tenor":
             api_key = self.config["tenor_api_key"]
-            url_params = urllib.parse.urlencode({"q": search_term, "key": api_key})
+            url_params = urllib.parse.urlencode({"q": search_term, "key": api_key, "contentfilter": rating})
             response_type = self.config["response_type"]
             # Get random gif url using search term
             async with self.http.get(

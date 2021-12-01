@@ -15,7 +15,8 @@ source: trending
 #   reply: reply-message containing url to gif
 #   upload: image upload to the room
 response_type: message
-# (Giphy only) Choose an MPAA-like content "rating", 'g' 
-# is default (g|pg|pg-13|r) 
-# https://developers.giphy.com/docs/optional-settings/#rating
-rating: g
+# Choose an MPAA-like content "rating" 
+#   Giphy values: [g | pg | pg-13 | r] 
+#   Tenor values: [high | medium | low | off]
+#   default values: 'g' for Giphy, 'off' for Tenor
+rating: off

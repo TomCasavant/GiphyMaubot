@@ -16,6 +16,7 @@ class Config(BaseProxyConfig):
         helper.copy("source")
         helper.copy("response_type")
         helper.copy("num_results")
+        helper.copy("rating")
 
 
 class GiphyPlugin(Plugin):
@@ -65,7 +66,7 @@ class GiphyPlugin(Plugin):
 
         if self.config["provider"] == "giphy":
             api_key = self.config["giphy_api_key"]
-            url_params = urllib.parse.urlencode({"s": search_term, "api_key": api_key})
+            url_params = urllib.parse.urlencode({"s": search_term, "api_key": api_key, "rating": rating})
             response_type = self.config["response_type"]
             # Get random gif url using search term
             async with self.http.get(

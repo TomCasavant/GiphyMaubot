@@ -12,6 +12,7 @@ class Config(BaseProxyConfig):
     def do_update(self, helper: ConfigUpdateHelper) -> None:
         helper.copy("giphy_api_key")
         helper.copy("tenor_api_key")
+        helper.copy("tenor_api_version")
         helper.copy("provider")
         helper.copy("source")
         helper.copy("response_type")
@@ -88,24 +89,24 @@ class GiphyPlugin(Plugin):
 
         elif self.config["provider"] == "tenor":
             api_key = self.config["tenor_api_key"]
+            api_version = self.config["tenor_api_version"]
             rating = self.config["rating"]
             url_params = urllib.parse.urlencode({"q": search_term, "key": api_key, "contentfilter": rating})
             response_type = self.config["response_type"]
             # Get random gif url using search term
             async with self.http.get(
-                "https://g.tenor.com/v1/search?{}".format(url_params)
+                f"https://g.tenor.com/{api_version}/search?{url_params}"
             ) as response:
                 data = await response.json()
 
             # Retrieve gif link from JSON response
             try:
                 image_num = random.randint(0, self.config["num_results"] - 1)
-                gif_link = data["results"][image_num]["media"][0]["gif"]["url"]
+                gif = data["results"][image_num]["media_formats"]["gif"]
+                gif_link = gif["url"]
                 info = {}
-                info["width"] = data["results"][image_num]["media"][0]["gif"]["dims"][0]
-                info["height"] = data["results"][image_num]["media"][0]["gif"]["dims"][
-                    1
-                ]
+                info["width"] = gif["dims"][0]
+                info["height"] = gif["dims"][1]
                 info["mime"] = "image/gif"  # this shouldn't really change
             except Exception as e:
                 await evt.respond("Blip bloop... Something is wrecked up here!")

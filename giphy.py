@@ -102,7 +102,11 @@ class GiphyPlugin(Plugin):
             # Retrieve gif link from JSON response
             try:
                 image_num = random.randint(0, self.config["num_results"] - 1)
-                gif = data["results"][image_num]["media_formats"]["gif"]
+                result = data["results"][image_num]
+                gif = (
+                    result["media_formats"] if api_version == "v2"
+                    else result["media"][0]
+                )["gif"]
                 gif_link = gif["url"]
                 info = {}
                 info["width"] = gif["dims"][0]

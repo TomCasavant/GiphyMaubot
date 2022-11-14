@@ -1,5 +1,7 @@
 giphy_api_key: API_KEY_HERE
 tenor_api_key: API_KEY_HERE
+# Which Tenor API version to use: v1 or v2?
+tenor_api_version: v2
 # Source of the gifs, can be either giphy or tenor
 provider: tenor
 # Number of results of the query in which the gif
@@ -15,8 +17,8 @@ source: trending
 #   reply: reply-message containing url to gif
 #   upload: image upload to the room
 response_type: message
-# Choose an MPAA-like content "rating" 
-#   Giphy values: [g | pg | pg-13 | r] 
+# Choose an MPAA-like content "rating"
+#   Giphy values: [g | pg | pg-13 | r]
 #   Tenor values: [high | medium | low | off]
 #   default values: 'g' for Giphy, 'off' for Tenor
 rating: off

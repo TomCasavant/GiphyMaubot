@@ -9,7 +9,7 @@ maubot: 0.1.0
 id: casavant.tom.giphy
 
 # A PEP 440 compliant version string.
-version: 3.2.1
+version: 3.3.0
 
 # The SPDX license identifier for the plugin. https://spdx.org/licenses/
 # Optional, assumes all rights reserved if omitted.

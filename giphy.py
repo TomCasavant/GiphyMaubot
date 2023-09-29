@@ -80,8 +80,8 @@ class GiphyPlugin(Plugin):
             try:
                 gif_link = data["data"]["images"]["original"]["url"]
                 info = {}
-                info["width"] = data["data"]["images"]["original"]["width"]
-                info["height"] = data["data"]["images"]["original"]["height"]
+                info["width"] = int(data["data"]["images"]["original"]["width"])
+                info["height"] = int(data["data"]["images"]["original"]["height"])
                 info["mime"] = "image/gif"  # this shouldn't really change
             except Exception as e:
                 await evt.respond("Blip bloop... Something is wrecked up here!")
@@ -109,8 +109,8 @@ class GiphyPlugin(Plugin):
                 )["gif"]
                 gif_link = gif["url"]
                 info = {}
-                info["width"] = gif["dims"][0]
-                info["height"] = gif["dims"][1]
+                info["width"] = int(gif["dims"][0])
+                info["height"] = int(gif["dims"][1])
                 info["mime"] = "image/gif"  # this shouldn't really change
             except Exception as e:
                 await evt.respond("Blip bloop... Something is wrecked up here!")

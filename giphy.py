@@ -72,7 +72,7 @@ class GiphyPlugin(Plugin):
             response_type = self.config["response_type"]
             # Get random gif url using search term
             async with self.http.get(
-                "http://api.giphy.com/v1/gifs/{}?{}".format(source, url_params)
+                "https://api.giphy.com/v1/gifs/{}?{}".format(source, url_params)
             ) as response:
                 data = await response.json()
 

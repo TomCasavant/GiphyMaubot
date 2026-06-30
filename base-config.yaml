@@ -1,12 +1,11 @@
 giphy_api_key: API_KEY_HERE
-tenor_api_key: API_KEY_HERE
-# Which Tenor API version to use: v1 or v2?
-tenor_api_version: v2
-# Source of the gifs, can be either giphy or tenor
-provider: tenor
+klipy_api_key: API_KEY_HERE
+
+# Source of the gifs, can be either giphy or klipy
+provider: klipy
 # Number of results of the query in which the gif
 # is randomly chosen. Set 1 for the top result.
-# (tenor-only option)
+# (klipy-only option)
 num_results: 1
 # Uncomment desired source for random gifs on giphy
 # can be either trending or random
@@ -19,6 +18,6 @@ source: trending
 response_type: message
 # Choose an MPAA-like content "rating"
 #   Giphy values: [g | pg | pg-13 | r]
-#   Tenor values: [high | medium | low | off]
-#   default values: 'g' for Giphy, 'off' for Tenor
+#   Klipy values: [high | medium | low | off]
+#   default values: 'g' for Giphy, 'off' for klipy
 rating: off

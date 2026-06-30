@@ -2,11 +2,10 @@
 A simple [maubot](https://github.com/maubot/maubot) that generates a random gif given a search term.
 
 ## Setup
-1. Get API key from [giphy](https://developers.giphy.com/docs/) and [tenor](https://tenor.com/gifapi)
-2. Fill in `giphy_api_key` and `tenor_api_key` field in base-config.yaml config file or in online maubot config editor
-3. It is no longer possible to register new keys for Tenor API v1 (https://tenor.com/developer/keyregistration). Select your tenor API version (v1 or v2)
-4. Decide what (giphy) endpoint to get random gifs from (e.g. trending, random) in config file
-5. Choose a response type:
+1. Get API key from [giphy](https://developers.giphy.com/docs/) and [klipy](https://docs.klipy.com/)
+2. Fill in `giphy_api_key` and `klipy_api_key` field in base-config.yaml config file or in online maubot config editor
+3. Decide what (giphy) endpoint to get random gifs from (e.g. trending, random) in config file
+4. Choose a response type:
   - `message` will send a regular message to the room
   - `reply` will send a quoted reply message to the room
   - `upload` will actually upload the GIF as an image to the room
@@ -16,4 +15,8 @@ A simple [maubot](https://github.com/maubot/maubot) that generates a random gif 
 `!gif word` - Bot replies with a link to a gif given the search term
 `!gif` - Bot replies with a link to a random gif
 
-Also, `!giphy`, `!g` and `!tenor` may be used.
+Also, `!giphy`, `!g` and `!klipy` may be used.
+
+
+### Notes
+- Tenor API has been shutdown, so I've replaced it with Klipy

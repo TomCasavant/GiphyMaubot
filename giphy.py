@@ -11,8 +11,8 @@ from maubot.handlers import command
 class Config(BaseProxyConfig):
     def do_update(self, helper: ConfigUpdateHelper) -> None:
         helper.copy("giphy_api_key")
-        helper.copy("tenor_api_key")
-        helper.copy("tenor_api_version")
+        helper.copy("klipy_api_key")
+        helper.copy("klipy_api_version")
         helper.copy("provider")
         helper.copy("source")
         helper.copy("response_type")
@@ -53,7 +53,7 @@ class GiphyPlugin(Plugin):
 
     @command.new(
         "giphy",
-        aliases=("gif", "g", "tenor"),
+        aliases=("gif", "g", "klipy"),
     )
     @command.argument("search_term", pass_raw=True, required=False)
     async def handler(self, evt: MessageEvent, search_term: str) -> None:
@@ -84,36 +84,33 @@ class GiphyPlugin(Plugin):
                 info["height"] = int(data["data"]["images"]["original"]["height"])
                 info["mime"] = "image/gif"  # this shouldn't really change
             except Exception as e:
-                await evt.respond("Blip bloop... Something is wrecked up here!")
+                self.log.exception("Failed to fetch/parse GIF response from provider")
+                await evt.respond("Something went wrong")
                 return None
 
-        elif self.config["provider"] == "tenor":
-            api_key = self.config["tenor_api_key"]
-            api_version = self.config["tenor_api_version"]
+        elif self.config["provider"] == "klipy":
+            api_key = self.config["klipy_api_key"]
             rating = self.config["rating"]
-            url_params = urllib.parse.urlencode({"q": search_term, "key": api_key, "contentfilter": rating})
+            params = {"q": search_term, "rating": rating, "per_page": self.config["num_results"]}
+            url_params = urllib.parse.urlencode(params)
             response_type = self.config["response_type"]
-            # Get random gif url using search term
             async with self.http.get(
-                f"https://g.tenor.com/{api_version}/search?{url_params}"
+                f"https://api.klipy.com/api/v1/{api_key}/gifs/search?{url_params}"
             ) as response:
                 data = await response.json()
-
-            # Retrieve gif link from JSON response
             try:
-                image_num = random.randint(0, self.config["num_results"] - 1)
-                result = data["results"][image_num]
-                gif = (
-                    result["media_formats"] if api_version == "v2"
-                    else result["media"][0]
-                )["gif"]
+                results = data["data"]["data"]
+                image_num = random.randint(0, len(results) - 1)
+                gif = results[image_num]["file"]["hd"]["gif"]
                 gif_link = gif["url"]
-                info = {}
-                info["width"] = int(gif["dims"][0])
-                info["height"] = int(gif["dims"][1])
-                info["mime"] = "image/gif"  # this shouldn't really change
-            except Exception as e:
-                await evt.respond("Blip bloop... Something is wrecked up here!")
+                info = {
+                    "width": int(gif["width"]),
+                    "height": int(gif["height"]),
+                    "mime": "image/gif",
+                }
+            except Exception:
+                self.log.exception("Failed to fetch/parse GIF response from Klipy")
+                await evt.respond("Something went wrong.")
                 return None
         else:
             raise (Exception("Wrong provider:", self.config["provider"]))
